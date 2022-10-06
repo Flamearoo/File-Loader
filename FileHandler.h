@@ -45,11 +45,6 @@ int CreateFolder(string dir) {
 	return -1;
 }
 
-int CreateGroup(string group) {
-
-	return -1;
-}
-
 int CreateItem(string group, string name, string data) {
 	size_t sz = 0;
 	char* appdata;
@@ -72,6 +67,16 @@ int RemoveItem(string group, string name) {
 	return -1;
 }
 
+int CreateGroup(string group) {
+	size_t sz = 0;
+	char* appdata;
+	_dupenv_s(&appdata, &sz, "APPDATA");
+
+	CreateFolder(group + string("\\"));
+
+	return -1;
+}
+
 int RemoveGroup(string group) {
 	size_t sz = 0;
 	char* appdata;
@@ -80,5 +85,13 @@ int RemoveGroup(string group) {
 	filesystem::remove_all(appdata + string("\\File Loader\\") + group + string("\\"));
 
 	return -1;
+}
+
+int LoadItem(string group, string name, string dump) {
+	size_t sz = 0;
+	char* appdata;
+	_dupenv_s(&appdata, &sz, "APPDATA");
+
+	CopyRecursive(appdata + string("\\File Loader\\") + group + string("\\") + name + string("\\"), dump);
 }
 #endif FILEHANDLER_H
