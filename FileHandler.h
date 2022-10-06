@@ -93,5 +93,7 @@ int LoadItem(string group, string name, string dump) {
 	_dupenv_s(&appdata, &sz, "APPDATA");
 
 	CopyRecursive(appdata + string("\\File Loader\\") + group + string("\\") + name + string("\\"), dump);
+
+	return -1;
 }
 #endif FILEHANDLER_H
