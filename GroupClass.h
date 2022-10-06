@@ -11,12 +11,10 @@ class load {
 public:
 	string Key;
 	string Name;
-	string File;
 
-	load(string KeyIn, string NameIn, string FileIn) {
+	load(string KeyIn, string NameIn) {
 		Key = KeyIn;
 		Name = NameIn;
-		File = FileIn;
 	}
 	load() {}
 };
@@ -47,11 +45,10 @@ public:
 	}
 	group() {}
 
-	void Add(string KeyIn, string NameIn, string FileIn) {
+	void Add(string KeyIn, string NameIn) {
 		load Out;
 		Out.Key = KeyIn;
 		Out.Name = NameIn;
-		Out.File = FileIn;
 		Load.push_back(Out);
 	}
 
