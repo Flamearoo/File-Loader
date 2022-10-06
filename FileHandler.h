@@ -45,7 +45,8 @@ int CreateFolder(string dir) {
 	return -1;
 }
 
-int CreateGroup() {
+int CreateGroup(string group) {
+
 	return -1;
 }
 
@@ -68,6 +69,16 @@ int RemoveItem(string group, string name) {
 	_dupenv_s(&appdata, &sz, "APPDATA");
 
 	filesystem::remove_all(appdata + string("\\File Loader\\") + group + string("\\") + name + string("\\"));
+	return -1;
+}
+
+int RemoveGroup(string group) {
+	size_t sz = 0;
+	char* appdata;
+	_dupenv_s(&appdata, &sz, "APPDATA");
+
+	filesystem::remove_all(appdata + string("\\File Loader\\") + group + string("\\"));
+
 	return -1;
 }
 #endif FILEHANDLER_H
