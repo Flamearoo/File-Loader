@@ -5,13 +5,21 @@
 #include <stdlib.h>
 
 void Base() {
-	vector<group> data;
+	std::ios::binary;
+
+	ifstream data_in;
+	data_in.open("class_data");
+	string bin;
+	getline(data_in, bin);
+	data_in.close();
+
+	vector<group> data = bin;
 
 	string type;
 	while (true)
 	{
 		cout << "would you like to create 'c', remove 'r' or load 'l'?" << endl << "   ";
-		cin >> type;
+		getline(cin, type);
 
 		if (cin.fail() || (type != "c" && type != "r" && type != "l"))
 		{
@@ -26,8 +34,8 @@ void Base() {
 	{
 		while (true)
 		{
-			cout << "would you like to create a group 'g' or an item 'i'";
-			cin >> type;
+			cout << "would you like to create a group 'g' or an item 'i'" << endl << "   ";
+			getline(cin, type);
 
 			if (cin.fail() || (type != "g" && type != "i"))
 			{
@@ -58,7 +66,7 @@ void Base() {
 			while (true)
 			{
 				cout << "what would you like to call the group?" << endl << "   ";
-				cin >> nameG;
+				getline(cin, nameG);
 
 				if (cin.fail() || find(names.begin(), names.end(), nameG) != names.end())
 				{
@@ -73,7 +81,7 @@ void Base() {
 			while (true)
 			{
 				cout << "what would you like the shortcut to be?" << endl << "   ";
-				cin >> keyG;
+				getline(cin, keyG);
 
 				if (cin.fail() || find(keys.begin(), keys.end(), keyG) != keys.end())
 				{
@@ -88,7 +96,7 @@ void Base() {
 			while (true)
 			{
 				cout << "what is the directory of the program?" << endl << "   ";
-				cin >> dirG;
+				getline(cin, dirG);
 
 				if (cin.fail())
 				{
@@ -123,7 +131,7 @@ void Base() {
 				}
 
 				cout << "   ";
-				cin >> keyG;
+				getline(cin, keyG);
 
 				if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
 				{
@@ -152,7 +160,7 @@ void Base() {
 			while (true)
 			{
 				cout << "what would you like to call the item?" << endl << "   ";
-				cin >> nameI;
+				getline(cin, nameI);
 
 				if (cin.fail() || find(names.begin(), names.end(), nameI) != names.end())
 				{
@@ -167,7 +175,7 @@ void Base() {
 			while (true)
 			{
 				cout << "what would you like the shortcut to be?" << endl << "   ";
-				cin >> keyI;
+				getline(cin, keyI);
 
 				if (cin.fail() || find(keys.begin(), keys.end(), keyI) != keys.end())
 				{
@@ -182,7 +190,7 @@ void Base() {
 			while (true)
 			{
 				cout << "would you like to upload 'u' or import current item 'i'?" << endl << "   ";
-				cin >> upload;
+				getline(cin, upload);
 
 				if (cin.fail() || (upload != "g" && upload != "i"))
 				{
@@ -200,7 +208,7 @@ void Base() {
 				while (true)
 				{
 					cout << "where would you like to import from?" << endl << "   ";
-					cin >> dir;
+					getline(cin, dir);
 
 					if (cin.fail())
 					{
@@ -231,7 +239,7 @@ void Base() {
 		while (true)
 		{
 			cout << "would you like to remove a group 'g' or an item 'i'";
-			cin >> type;
+			getline(cin, type);
 
 			if (cin.fail() || (type != "g" && type != "i"))
 			{
@@ -260,7 +268,7 @@ void Base() {
 			}
 
 			cout << "   ";
-			cin >> keyG;
+			getline(cin, keyG);
 
 			if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
 			{
@@ -304,7 +312,7 @@ void Base() {
 				}
 
 				cout << "   ";
-				cin >> keyI;
+				getline(cin, keyI);
 
 				if (cin.fail() || find(keys.begin(), keys.end(), keyI) == keys.end())
 				{
@@ -346,7 +354,7 @@ void Base() {
 			}
 
 			cout << "   ";
-			cin >> keyG;
+			getline(cin, keyG);
 
 			if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
 			{
@@ -382,7 +390,7 @@ void Base() {
 			}
 
 			cout << "   ";
-			cin >> keyI;
+			getline(cin, keyI);
 
 			if (cin.fail() || find(keys.begin(), keys.end(), keyI) == keys.end())
 			{
@@ -397,6 +405,13 @@ void Base() {
 
 		LoadItem(data.at(keyGN).Dump.Name, data.at(keyGN).Load.at(keyIN).Name, data.at(keyGN).Dump.Data);
 	}
+
+	bin = data;
+
+	ofstream data_out;
+	data_out.open("class_data");
+	data_out << bin;
+	data_out.close();
 }
 
 #endif PROGRAM_H
