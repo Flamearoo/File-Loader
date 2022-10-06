@@ -1,9 +1,7 @@
 #ifndef GROUPCLASS_H
 #define GROUPCLASS_H
 
-#include <iostream>
-#include <string>
-#include <vector>
+#include "FileHandler.h"
 
 using namespace std;
 
