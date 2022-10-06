@@ -4,16 +4,8 @@
 #include "GroupClass.h"
 #include <stdlib.h>
 
-void Base() {
-	std::ios::binary;
-
-	ifstream data_in;
-	data_in.open("class_data");
-	string bin;
-	getline(data_in, bin);
-	data_in.close();
-
-	vector<group> data = bin;
+group Base(group dataI) {
+	group data = dataI;
 
 	string type;
 	while (true)
@@ -406,12 +398,7 @@ void Base() {
 		LoadItem(data.at(keyGN).Dump.Name, data.at(keyGN).Load.at(keyIN).Name, data.at(keyGN).Dump.Data);
 	}
 
-	bin = data;
-
-	ofstream data_out;
-	data_out.open("class_data");
-	data_out << bin;
-	data_out.close();
+	return data;
 }
 
 #endif PROGRAM_H
