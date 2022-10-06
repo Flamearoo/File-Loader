@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 void Base() {
-	vector<group> data = { group("h", "hollow knight", ""), group("m", "minecraft", "") };
+	vector<group> data;
 
 	string type;
 	while (true)
@@ -24,11 +24,190 @@ void Base() {
 	}
 	if (type == "c")
 	{
+		while (true)
+		{
+			cout << "would you like to create a group 'g' or an item 'i'";
+			cin >> type;
 
+			if (cin.fail() || (type != "g" && type != "i"))
+			{
+				cout << "Err : please enter a valid input" << endl << endl;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		if (type == "g")
+		{
+			vector<string> names(data.size());
+			for (int i = 0; i < data.size(); i++)
+			{
+				names.at(i) = data.at(i).Dump.Name;
+			}
+			vector<string> keys(data.size());
+			for (int i = 0; i < data.size(); i++)
+			{
+				keys.at(i) = data.at(i).Dump.Key;
+			}
+
+			string nameG;
+			string keyG;
+			string dirG;
+			while (true)
+			{
+				cout << "what would you like to call the group?" << endl << "   ";
+				cin >> nameG;
+
+				if (cin.fail() || find(names.begin(), names.end(), nameG) != names.end())
+				{
+					cout << "Err : please enter a valid input (group may already exist)" << endl << endl;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			while (true)
+			{
+				cout << "what would you like the shortcut to be?" << endl << "   ";
+				cin >> keyG;
+
+				if (cin.fail() || find(keys.begin(), keys.end(), keyG) != keys.end())
+				{
+					cout << "Err : please enter a valid input (key may already exist)" << endl << endl;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			while (true)
+			{
+				cout << "what is the directory of the program?" << endl << "   ";
+				cin >> dirG;
+
+				if (cin.fail())
+				{
+					cout << "Err : please enter a valid directory" << endl << endl;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			CreateGroup(nameG);
+			data.push_back(group(keyG, nameG, dirG));
+		}
+		else
+		{
+
+		}
 	}
 	else if (type == "r")
 	{
+		if (data.size() == 0)
+		{
+			cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
+			return;
+		}
 
+		while (true)
+		{
+			cout << "would you like to remove a group 'g' or an item 'i'";
+			cin >> type;
+
+			if (cin.fail() || (type != "g" && type != "i"))
+			{
+				cout << "Err : please enter a valid input" << endl << endl;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		string keyG;
+		int keyGN;
+		while (true)
+		{
+			vector<string> keys(data.size());
+			for (int i = 0; i < data.size(); i++)
+			{
+				keys.at(i) = data.at(i).Dump.Key;
+			}
+
+			cout << "which group are you removing?" << endl;
+			for (int i = 0; i < data.size(); i++)
+			{
+				cout << "-'" << data.at(i).Dump.Key << "' " << data.at(i).Dump.Name << endl;
+			}
+
+			cout << "   ";
+			cin >> keyG;
+
+			if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
+			{
+				cout << "Err : please enter a valid input" << endl << endl;
+			}
+			else
+			{
+				keyGN = find(keys.begin(), keys.end(), keyG) - keys.begin();
+				break;
+			}
+		}
+
+		if (type == "g")
+		{
+			RemoveGroup(keyG);
+			data.erase(data.begin() + keyGN);
+		}
+		else
+		{
+
+			if (data.at(keyGN).Load.size() == 0)
+			{
+				cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
+				return;
+			}
+
+			string keyI;
+			int keyIN;
+			while (true)
+			{
+				vector<string> keys(data.size());
+				for (int i = 0; i < data.size(); i++)
+				{
+					keys.at(i) = data.at(keyGN).Load.at(i).Key;
+				}
+
+				cout << "which item are you removing?" << endl;
+				for (int i = 0; i < data.size(); i++)
+				{
+					cout << "-'" << data.at(keyGN).Load.at(i).Key << "' " << data.at(keyGN).Load.at(i).Name << endl;
+				}
+
+				cout << "   ";
+				cin >> keyI;
+
+				if (cin.fail() || find(keys.begin(), keys.end(), keyI) == keys.end())
+				{
+					cout << "Err : please enter a valid input" << endl << endl;
+				}
+				else
+				{
+					keyIN = find(keys.begin(), keys.end(), keyI) - keys.begin();
+					break;
+				}
+			}
+
+			RemoveItem(keyG, keyI);
+			data.at(keyGN).Load.erase(data.at(keyGN).Load.begin() + keyIN);
+		}
 	}
 	else if (type == "l")
 	{
@@ -84,7 +263,7 @@ void Base() {
 				keys.at(i) = data.at(keyGN).Load.at(i).Key;
 			}
 
-			cout << "which group are you loading?" << endl;
+			cout << "which item are you loading?" << endl;
 			for (int i = 0; i < data.size(); i++)
 			{
 				cout << "-'" << data.at(keyGN).Load.at(i).Key << "' " << data.at(keyGN).Load.at(i).Name << endl;
