@@ -4,8 +4,8 @@
 #include "GroupClass.h"
 #include <stdlib.h>
 
-group Base(group dataI) {
-	group data = dataI;
+vector<group> Base(vector<group> dataI) {
+	vector<group> data = dataI;
 
 	string type;
 	while (true)
@@ -225,7 +225,7 @@ group Base(group dataI) {
 		if (data.size() == 0)
 		{
 			cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
-			return;
+			return data;
 		}
 
 		while (true)
@@ -284,7 +284,7 @@ group Base(group dataI) {
 			if (data.at(keyGN).Load.size() == 0)
 			{
 				cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
-				return;
+				return data;
 			}
 
 			string keyI;
@@ -326,7 +326,7 @@ group Base(group dataI) {
 		if (data.size() == 0)
 		{
 			cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
-			return;
+			return data;
 		}
 
 		string keyG;
@@ -362,7 +362,7 @@ group Base(group dataI) {
 		if (data.at(keyGN).Load.size() == 0)
 		{
 			cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
-			return;
+			return data;
 		}
 
 		string keyI;
