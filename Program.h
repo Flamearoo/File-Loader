@@ -10,7 +10,7 @@ void Base() {
 	string type;
 	while (true)
 	{
-		cout << "would you like to create 'c', remove 'r' or load 'l'" << endl << "   ";
+		cout << "would you like to create 'c', remove 'r' or load 'l'?" << endl << "   ";
 		cin >> type;
 
 		if (cin.fail() || (type != "c" && type != "r" && type != "l"))
@@ -105,7 +105,119 @@ void Base() {
 		}
 		else
 		{
+			string upload;
+			string keyG;
+			int keyGN;
+			while (true)
+			{
+				vector<string> keys(data.size());
+				for (int i = 0; i < data.size(); i++)
+				{
+					keys.at(i) = data.at(i).Dump.Key;
+				}
 
+				cout << "which group are you adding to?" << endl;
+				for (int i = 0; i < data.size(); i++)
+				{
+					cout << "-'" << data.at(i).Dump.Key << "' " << data.at(i).Dump.Name << endl;
+				}
+
+				cout << "   ";
+				cin >> keyG;
+
+				if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
+				{
+					cout << "Err : please enter a valid input" << endl << endl;
+				}
+				else
+				{
+					keyGN = find(keys.begin(), keys.end(), keyG) - keys.begin();
+					break;
+				}
+			}
+
+			vector<string> names(data.size());
+			for (int i = 0; i < data.size(); i++)
+			{
+				names.at(i) = data.at(i).Dump.Name;
+			}
+			vector<string> keys(data.size());
+			for (int i = 0; i < data.size(); i++)
+			{
+				keys.at(i) = data.at(i).Dump.Key;
+			}
+
+			string nameI;
+			string keyI;
+			while (true)
+			{
+				cout << "what would you like to call the item?" << endl << "   ";
+				cin >> nameI;
+
+				if (cin.fail() || find(names.begin(), names.end(), nameI) != names.end())
+				{
+					cout << "Err : please enter a valid input (item may already exist)" << endl << endl;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			while (true)
+			{
+				cout << "what would you like the shortcut to be?" << endl << "   ";
+				cin >> keyI;
+
+				if (cin.fail() || find(keys.begin(), keys.end(), keyI) != keys.end())
+				{
+					cout << "Err : please enter a valid input (key may already exist)" << endl << endl;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			while (true)
+			{
+				cout << "would you like to upload 'u' or import current item 'i'?" << endl << "   ";
+				cin >> upload;
+
+				if (cin.fail() || (upload != "g" && upload != "i"))
+				{
+					cout << "Err : please enter a valid input" << endl << endl;
+				}
+				else
+				{
+					break;
+				}
+			}
+
+			if (upload == "u")
+			{
+				string dir;
+				while (true)
+				{
+					cout << "where would you like to import from?" << endl << "   ";
+					cin >> dir;
+
+					if (cin.fail())
+					{
+						cout << "Err : please enter a valid directory" << endl << endl;
+					}
+					else
+					{
+						break;
+					}
+				}
+
+				CreateItem(data.at(keyGN).Dump.Name, nameI, dir);
+			}
+			else
+			{
+				CreateItem(data.at(keyGN).Dump.Name, nameI, data.at(keyGN).Dump.Data);
+			}
 		}
 	}
 	else if (type == "r")
