@@ -16,14 +16,38 @@ vector<group> ReadData() {
 	data_f.open(appdata + folder + string("group_data.txt"));
 
 	int i = 0;
+	string g;
 	while (true)
 	{
+		if (!getline(data_f, g) || g == "")
+		{
+			break;
+		}
 
+		data.push_back(group());
+
+		data.at(i).Dump.Key = g;
+
+		getline(data_f, g);
+		data.at(i).Dump.Name = g;
+
+		getline(data_f, g);
+		data.at(i).Dump.Data = g;
 
 		int j = 0;
 		while (true)
 		{
+			if (!getline(data_f, g) || g == "")
+			{
+				break;
+			}
 
+			data.at(i).Load.push_back(load());
+
+			data.at(i).Load.at(j).Key = g;
+
+			getline(data_f, g);
+			data.at(i).Load.at(j).Name = g;
 
 			j++;
 		}

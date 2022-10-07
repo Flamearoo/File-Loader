@@ -213,10 +213,12 @@ vector<group> Base(vector<group> dataI) {
 				}
 
 				CreateItem(data.at(keyGN).Dump.Name, nameI, dir);
+				data.at(keyGN).Load.push_back(load(keyI, nameI));
 			}
 			else
 			{
 				CreateItem(data.at(keyGN).Dump.Name, nameI, data.at(keyGN).Dump.Data);
+				data.at(keyGN).Load.push_back(load(keyI, nameI));
 			}
 		}
 	}
@@ -369,14 +371,14 @@ vector<group> Base(vector<group> dataI) {
 		int keyIN;
 		while (true)
 		{
-			vector<string> keys(data.size());
-			for (int i = 0; i < data.size(); i++)
+			vector<string> keys(data.at(keyGN).Load.size());
+			for (int i = 0; i < data.at(keyGN).Load.size(); i++)
 			{
 				keys.at(i) = data.at(keyGN).Load.at(i).Key;
 			}
 
 			cout << "which item are you loading?" << endl;
-			for (int i = 0; i < data.size(); i++)
+			for (int i = 0; i < data.at(keyGN).Load.size(); i++)
 			{
 				cout << "-'" << data.at(keyGN).Load.at(i).Key << "' " << data.at(keyGN).Load.at(i).Name << endl;
 			}

@@ -7,7 +7,7 @@ using namespace std;
 int main() {
 	CreateLoc();
 
-	vector<group> data;
+	vector<group> data = ReadData();
 
 	while (true)
 	{
