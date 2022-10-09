@@ -248,41 +248,69 @@ vector<group> Base(vector<group> dataI) {
 
 		string keyG;
 		int keyGN;
-		while (true)
-		{
-			vector<string> keys(data.size());
-			for (int i = 0; i < data.size(); i++)
-			{
-				keys.at(i) = data.at(i).Dump.Key;
-			}
-
-			cout << "which group are you removing?" << endl;
-			for (int i = 0; i < data.size(); i++)
-			{
-				cout << "-'" << data.at(i).Dump.Key << "' " << data.at(i).Dump.Name << endl;
-			}
-
-			cout << "   ";
-			getline(cin, keyG);
-
-			if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
-			{
-				cout << "Err : please enter a valid input" << endl << endl;
-			}
-			else
-			{
-				keyGN = find(keys.begin(), keys.end(), keyG) - keys.begin();
-				break;
-			}
-		}
 
 		if (type == "g")
 		{
+			while (true)
+			{
+				vector<string> keys(data.size());
+				for (int i = 0; i < data.size(); i++)
+				{
+					keys.at(i) = data.at(i).Dump.Key;
+				}
+
+				cout << "which group are you removing?" << endl;
+				for (int i = 0; i < data.size(); i++)
+				{
+					cout << "-'" << data.at(i).Dump.Key << "' " << data.at(i).Dump.Name << endl;
+				}
+
+				cout << "   ";
+				getline(cin, keyG);
+
+				if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
+				{
+					cout << "Err : please enter a valid input" << endl << endl;
+				}
+				else
+				{
+					keyGN = find(keys.begin(), keys.end(), keyG) - keys.begin();
+					break;
+				}
+			}
+
 			RemoveGroup(keyG);
 			data.erase(data.begin() + keyGN);
 		}
 		else
 		{
+			while (true)
+			{
+				vector<string> keys(data.size());
+				for (int i = 0; i < data.size(); i++)
+				{
+					keys.at(i) = data.at(i).Dump.Key;
+				}
+
+				cout << "which group are you removing from?" << endl;
+				for (int i = 0; i < data.size(); i++)
+				{
+					cout << "-'" << data.at(i).Dump.Key << "' " << data.at(i).Dump.Name << endl;
+				}
+
+				cout << "   ";
+				getline(cin, keyG);
+
+				if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
+				{
+					cout << "Err : please enter a valid input" << endl << endl;
+				}
+				else
+				{
+					keyGN = find(keys.begin(), keys.end(), keyG) - keys.begin();
+					break;
+				}
+			}
 
 			if (data.at(keyGN).Load.size() == 0)
 			{
