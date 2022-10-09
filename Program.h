@@ -233,7 +233,7 @@ vector<group> Base(vector<group> dataI) {
 
 		while (true)
 		{
-			cout << "would you like to remove a group 'g' or an item 'i'";
+			cout << "would you like to remove a group 'g' or an item 'i'" << endl << "   ";
 			getline(cin, type);
 
 			if (cin.fail() || (type != "g" && type != "i"))
