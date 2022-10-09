@@ -185,7 +185,7 @@ vector<group> Base(vector<group> dataI) {
 				cout << "would you like to upload 'u' or import current item 'i'?" << endl << "   ";
 				getline(cin, upload);
 
-				if (cin.fail() || (upload != "g" && upload != "i"))
+				if (cin.fail() || (upload != "u" && upload != "i"))
 				{
 					cout << "Err : please enter a valid input" << endl << endl;
 				}
