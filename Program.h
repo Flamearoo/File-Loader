@@ -136,15 +136,16 @@ vector<group> Base(vector<group> dataI) {
 				}
 			}
 
-			vector<string> names(data.size());
+			vector<string> names(data.at(keyGN).Load.size());
 			for (int i = 0; i < data.size(); i++)
 			{
-				names.at(i) = data.at(i).Dump.Name;
+				names.at(i) = data.at(keyGN).Load.at(i).Name;
 			}
-			vector<string> keys(data.size());
+
+			vector<string> keys(data.at(keyGN).Load.size());
 			for (int i = 0; i < data.size(); i++)
 			{
-				keys.at(i) = data.at(i).Dump.Key;
+				keys.at(i) = data.at(keyGN).Load.at(i).Key;
 			}
 
 			string nameI;

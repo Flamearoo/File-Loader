@@ -91,7 +91,9 @@ int LoadItem(string group, string name, string dump) {
 	size_t sz = 0;
 	char* appdata;
 	_dupenv_s(&appdata, &sz, "APPDATA");
-
+	
+	filesystem::remove_all(dump);
+	mkdir(dump.c_str());
 	CopyRecursive(appdata + string("\\File Loader\\") + group + string("\\") + name + string("\\"), dump);
 
 	return -1;
