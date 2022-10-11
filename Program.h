@@ -10,10 +10,10 @@ vector<group> Base(vector<group> dataI) {
 	string type;
 	while (true)
 	{
-		cout << "would you like to create 'c', remove 'r' or load 'l'?" << endl << "   ";
+		cout << "would you like to create 'c', remove 'r', update 'u' or load 'l'?" << endl << "   ";
 		getline(cin, type);
 
-		if (cin.fail() || (type != "c" && type != "r" && type != "l"))
+		if (cin.fail() || (type != "c" && type != "r" && type != "l" && type != "e"))
 		{
 			cout << "Err : please enter a valid input" << endl << endl;
 		}
@@ -427,6 +427,86 @@ vector<group> Base(vector<group> dataI) {
 		}
 
 		LoadItem(data.at(keyGN).Dump.Name, data.at(keyGN).Load.at(keyIN).Name, data.at(keyGN).Dump.Data);
+	}
+	else if (type == "u")
+	{
+		if (data.size() == 0)
+		{
+			cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
+			return data;
+		}
+
+		string keyG;
+		int keyGN;
+		while (true)
+		{
+			vector<string> keys(data.size());
+			for (int i = 0; i < data.size(); i++)
+			{
+				keys.at(i) = data.at(i).Dump.Key;
+			}
+
+			cout << "which group are you updating from?" << endl;
+			for (int i = 0; i < data.size(); i++)
+			{
+				cout << "-'" << data.at(i).Dump.Key << "' " << data.at(i).Dump.Name << endl;
+			}
+
+			cout << "   ";
+			getline(cin, keyG);
+
+			if (cin.fail() || find(keys.begin(), keys.end(), keyG) == keys.end())
+			{
+				cout << "Err : please enter a valid input" << endl << endl;
+			}
+			else
+			{
+				keyGN = find(keys.begin(), keys.end(), keyG) - keys.begin();
+				break;
+			}
+		}
+
+		if (data.at(keyGN).Load.size() == 0)
+		{
+			cout << "no current data, try creating some first" << endl << "rebooting" << endl << endl;
+			return data;
+		}
+
+		string keyI;
+		int keyIN;
+		while (true)
+		{
+			vector<string> keys(data.at(keyGN).Load.size());
+			for (int i = 0; i < data.at(keyGN).Load.size(); i++)
+			{
+				keys.at(i) = data.at(keyGN).Load.at(i).Key;
+			}
+
+			cout << "which item are you updating?" << endl;
+			for (int i = 0; i < data.at(keyGN).Load.size(); i++)
+			{
+				cout << "-'" << data.at(keyGN).Load.at(i).Key << "' " << data.at(keyGN).Load.at(i).Name << endl;
+			}
+
+			cout << "   ";
+			getline(cin, keyI);
+
+			if (cin.fail() || find(keys.begin(), keys.end(), keyI) == keys.end())
+			{
+				cout << "Err : please enter a valid input" << endl << endl;
+			}
+			else
+			{
+				keyIN = find(keys.begin(), keys.end(), keyI) - keys.begin();
+				break;
+			}
+		}
+
+		size_t sz = 0;
+		char* appdata;
+		_dupenv_s(&appdata, &sz, "APPDATA");
+
+		CopyRecursive(data.at(keyGN).Dump.Data, appdata + string("\\File Loader\\") + data.at(keyGN).Dump.Name + string("\\") + data.at(keyGN).Load.at(keyIN).Name + string("\\"));
 	}
 
 	return data;
