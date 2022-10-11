@@ -13,7 +13,7 @@ vector<group> Base(vector<group> dataI) {
 		cout << "would you like to create 'c', remove 'r', update 'u' or load 'l'?" << endl << "   ";
 		getline(cin, type);
 
-		if (cin.fail() || (type != "c" && type != "r" && type != "l" && type != "e"))
+		if (cin.fail() || (type != "c" && type != "r" && type != "l" && type != "u"))
 		{
 			cout << "Err : please enter a valid input" << endl << endl;
 		}
